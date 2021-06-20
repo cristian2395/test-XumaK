@@ -2,7 +2,7 @@ package com.example.xumak.repository.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Characters(
+data class CharacterItem(
     @SerializedName("appearance")
     val appearance: List<Int>,
     @SerializedName("better_call_saul_appearance")

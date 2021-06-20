@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">XumaK</string>
+    <string name="name">name</string>
+    <string name="nickname">nickname</string>
 </resources>
