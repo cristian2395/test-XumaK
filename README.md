@@ -1,6 +1,6 @@
-# reign-test
+# test-XumaK
 
-<img src="/readme/reign.png" align="left"
+<img src="/readme/xumak.png" align="left"
 width="200" hspace="10" vspace="10">
 
 
