@@ -1,21 +1,23 @@
 package com.example.xumak.view.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xumak.databinding.ActivityMainBinding
 import com.example.xumak.R
-import com.example.xumak.view.adapter.CharacterRecyclerAdapter
+import com.example.xumak.view.adapter.CharacterAdapter
+import com.example.xumak.viewModel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    lateinit var mRecyclerView: RecyclerView
-    lateinit var adapter: CharacterRecyclerAdapter
-    lateinit var swipeRefresh: SwipeRefreshLayout
+    lateinit var recyclerViewAdapter: CharacterAdapter
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,13 +25,35 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        viewModel = MainViewModel(this.application)
+
         // Inicialización Toolbar
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         toolbar.title = "Breaking Bad Characters"
 
         // Inicialización widget
-        mRecyclerView = binding.recyclerView
-        swipeRefresh = binding.swipeRefresh
+        binding.swipeRefresh.isRefreshing = true
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.peticionData()
+        }
+
+        //Live Data
+        viewModel.listCharacters.observeForever {
+            Log.e("itemmmmmm", "${it[0].name}")
+            recyclerViewAdapter = CharacterAdapter(it)
+            binding.recyclerView.adapter = recyclerViewAdapter
+        }
+        viewModel.isRefreshing.observeForever {
+            binding.swipeRefresh.isRefreshing = it
+        }
+        viewModel.msgSnack.observeForever {
+            Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show();
+        }
+
+        viewModel.peticionData()
     }
 }
