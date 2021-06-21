@@ -29,7 +29,6 @@ git clone https://github.com/cristian2395/reign-test.git
 
 [<img src="/readme/scren1.jpeg" align="left" width="200" space="10">](/readme/scren1.jpeg)
 [<img src="/readme/scren2.jpeg" align="center" width="200" space="10">](/readme/scren2.jpeg)
-[<img src="/readme/scren3.jpeg" align="center" width="200" space="10">](/readme/scren3.jpeg)
 
 ## Permissions
 

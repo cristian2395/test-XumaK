@@ -1,7 +1,6 @@
 package com.example.xumak.repository.api
 
 import android.util.Log
-import com.example.xumak.repository.models.CharacterItem
 import com.example.xumak.repository.models.ResponseRequest
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

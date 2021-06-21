@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         //Live Data
         viewModel.listCharacters.observeForever {
-            recyclerViewAdapter = CharacterAdapter(it, this)
+            recyclerViewAdapter = CharacterAdapter(it, this, viewModel)
             binding.recyclerView.adapter = recyclerViewAdapter
         }
         viewModel.isRefreshing.observeForever {
@@ -53,6 +53,6 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show();
         }
 
-        viewModel.peticionData()
+        viewModel.peticionDataBD()
     }
 }

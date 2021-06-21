@@ -2,6 +2,7 @@ package com.example.xumak.view.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +15,13 @@ import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xumak.R
 import com.example.xumak.databinding.ItemCharacterBinding
-import com.example.xumak.repository.models.CharacterItem
+import com.example.xumak.repository.bd.entity.CharacterItem
+import com.example.xumak.repository.bd.extension.heartEffect
 import com.example.xumak.view.ui.CharacterDetailActivity
+import com.example.xumak.viewModel.MainViewModel
 
 
-class CharacterAdapter(private val dataSet: ArrayList<CharacterItem>, private val mContext: Context) :
+class CharacterAdapter(private val dataSet: ArrayList<CharacterItem>, private val mContext: Context, private val viewModel: MainViewModel) :
     RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
     /**
@@ -40,35 +43,21 @@ class CharacterAdapter(private val dataSet: ArrayList<CharacterItem>, private va
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val item = dataSet[position]
-        viewHolder.textViewTitle.text = item.name
-        viewHolder.textViewDescription.text = item.nickname
+        //viewHolder.buttonFavorite.isChecked = false
+        viewHolder.textViewTitle.text = dataSet[position].name
+        viewHolder.textViewDescription.text = dataSet[position].nickname
+        viewHolder.buttonFavorite.isChecked = dataSet[position].favourite
 
-        val scaleAnimation = ScaleAnimation(
-            0.7f,
-            1.0f,
-            0.7f,
-            1.0f,
-            Animation.RELATIVE_TO_SELF,
-            0.7f,
-            Animation.RELATIVE_TO_SELF,
-            0.7f
-        )
+        viewHolder.buttonFavorite.heartEffect()
 
-        scaleAnimation.duration = 500;
-        val bounceInterpolator = BounceInterpolator()
-        scaleAnimation.interpolator = bounceInterpolator;
-
-        viewHolder.buttonFavorite.setOnCheckedChangeListener { buttonView, isChecked ->
-            buttonView.startAnimation(scaleAnimation)
-            if (isChecked) {
-                //Do Whatever you want in isChecked
-            }
+        viewHolder.buttonFavorite.setOnClickListener {
+            dataSet[position].favourite = viewHolder.buttonFavorite.isChecked
+            viewModel.updateCharter(dataSet[position])
         }
 
         viewHolder.carHist.setOnClickListener {
             val submitIntent = Intent(mContext, CharacterDetailActivity::class.java)
-            submitIntent.putExtra("item", item)
+            submitIntent.putExtra("item", dataSet[position])
             mContext.startActivity(submitIntent)
         }
     }
