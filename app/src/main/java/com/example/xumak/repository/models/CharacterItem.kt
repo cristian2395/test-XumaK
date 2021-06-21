@@ -1,6 +1,7 @@
 package com.example.xumak.repository.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class CharacterItem(
     @SerializedName("appearance") val appearance: List<Int>?,
@@ -14,4 +15,4 @@ data class CharacterItem(
     @SerializedName("occupation") val occupation: List<String>?,
     @SerializedName("portrayed") val portrayed: String?,
     @SerializedName("status") val status: String?
-)
+): Serializable

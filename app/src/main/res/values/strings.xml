@@ -2,4 +2,8 @@
     <string name="app_name">XumaK</string>
     <string name="name">name</string>
     <string name="nickname">nickname</string>
+    <string name="guion">--------</string>
+    <string name="occupation">Occupation:</string>
+    <string name="status">Status:</string>
+    <string name="portrayed">Portrayed:</string>
 </resources>

@@ -1,21 +1,24 @@
 package com.example.xumak.view.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.BounceInterpolator
 import android.view.animation.ScaleAnimation
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.xumak.R
 import com.example.xumak.databinding.ItemCharacterBinding
 import com.example.xumak.repository.models.CharacterItem
+import com.example.xumak.view.ui.CharacterDetailActivity
 
 
-
-class CharacterAdapter(private val dataSet: ArrayList<CharacterItem>) :
+class CharacterAdapter(private val dataSet: ArrayList<CharacterItem>, private val mContext: Context) :
     RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 
     /**
@@ -27,6 +30,7 @@ class CharacterAdapter(private val dataSet: ArrayList<CharacterItem>) :
         var textViewTitle: TextView = binding.textName
         var textViewDescription: TextView = binding.textNickname
         var buttonFavorite: ToggleButton = binding.buttonFavorite
+        var carHist: LinearLayout = binding.carHist
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -36,8 +40,9 @@ class CharacterAdapter(private val dataSet: ArrayList<CharacterItem>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textViewTitle.text = dataSet[position].name
-        viewHolder.textViewDescription.text = dataSet[position].nickname
+        val item = dataSet[position]
+        viewHolder.textViewTitle.text = item.name
+        viewHolder.textViewDescription.text = item.nickname
 
         val scaleAnimation = ScaleAnimation(
             0.7f,
@@ -59,6 +64,12 @@ class CharacterAdapter(private val dataSet: ArrayList<CharacterItem>) :
             if (isChecked) {
                 //Do Whatever you want in isChecked
             }
+        }
+
+        viewHolder.carHist.setOnClickListener {
+            val submitIntent = Intent(mContext, CharacterDetailActivity::class.java)
+            submitIntent.putExtra("item", item)
+            mContext.startActivity(submitIntent)
         }
     }
 

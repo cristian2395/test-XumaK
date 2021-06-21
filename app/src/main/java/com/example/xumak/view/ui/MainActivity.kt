@@ -43,8 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         //Live Data
         viewModel.listCharacters.observeForever {
-            Log.e("itemmmmmm", "${it[0].name}")
-            recyclerViewAdapter = CharacterAdapter(it)
+            recyclerViewAdapter = CharacterAdapter(it, this)
             binding.recyclerView.adapter = recyclerViewAdapter
         }
         viewModel.isRefreshing.observeForever {
