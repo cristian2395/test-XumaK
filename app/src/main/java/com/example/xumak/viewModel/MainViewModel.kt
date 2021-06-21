@@ -24,7 +24,7 @@ class MainViewModel(application: Application) : ViewModel() {
     fun peticionData() = CoroutineScope(Dispatchers.IO).launch {
         isRefreshing.postValue(true)
         withContext(Dispatchers.Main) {
-            val result: ResponseRequest<ArrayList<CharacterItem>?> = api.GET("characters?limit=100", CharacterItem::class.java)
+            val result: ResponseRequest<ArrayList<CharacterItem>?> = api.GET("characters?limit=150", CharacterItem::class.java)
             if (result.status) {
                 result.data?.let {
                     val charFav = ArrayList(dbHelper.getCharacterFavorite(false))

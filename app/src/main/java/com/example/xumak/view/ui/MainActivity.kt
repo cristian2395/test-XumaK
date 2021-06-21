@@ -53,6 +53,10 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show();
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.peticionDataBD()
     }
 }
