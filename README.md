@@ -22,7 +22,7 @@ The android app lets you:
 ## Instructions
 Clone the repository and open the project in Android Studio
 ```
-git clone https://github.com/cristian2395/reign-test.git
+git clone https://github.com/cristian2395/test-XumaK.git
 ```
 
 ## Screenshots

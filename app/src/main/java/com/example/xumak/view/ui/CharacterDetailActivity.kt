@@ -32,6 +32,10 @@ class CharacterDetailActivity : AppCompatActivity() {
         val item: CharacterItem? = intent?.getSerializableExtra("item") as CharacterItem
 
         toolbar.title = item?.name
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        toolbar.setOnClickListener { finish() }
+
         binding.textNickname.text = item?.nickname
         binding.textOccupation.text = item?.occupation?.joinToString(",")
         binding.textStatus.text = item?.status
